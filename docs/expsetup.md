@@ -19,10 +19,10 @@ This page explains how the system was setup.
 
 ## Operating System Setup
 
-The RPi is running Ubuntu Server 22.04 (64-bit).
+The RPi is running Raspberry Pi OS bookworm (64-bit).
 Installed software include:
 
-* APT packages: `dnsmasq hostapd iw jq pi-bluetooth wireshark-common`
+* APT packages: `dnsmasq hostapd iw jq netplan.io pi-bluetooth wireshark-common`
 * Docker
 
 Changed configuration includes:
