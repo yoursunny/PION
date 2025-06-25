@@ -1,0 +1,6 @@
+ignoredBuiltDependencies:
+  - memif
+
+onlyBuiltDependencies:
+  - bufferutil
+  - classic-level

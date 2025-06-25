@@ -16,7 +16,7 @@ const AuthenticatedKeyword = Keyword.create("pion-authenticated");
 function parseAuthenticatorCertName(name) {
   const { subjectName } = CertNaming.parseCertName(name);
   const i = subjectName.comps.findIndex((comp) => comp.equals(AuthenticatorKeyword));
-  if (i < 0) {
+  if (i === -1) {
     throw new Error("no authenticator keyword");
   }
 
@@ -31,7 +31,7 @@ function parseAuthenticatorCertName(name) {
 function parseTempCertName(name) {
   const { subjectName } = CertNaming.parseCertName(name);
   const i = subjectName.comps.findIndex((comp) => comp.equals(AuthenticatedKeyword));
-  if (i < 0) {
+  if (i === -1) {
     throw new Error("no authenticated keyword");
   }
 
