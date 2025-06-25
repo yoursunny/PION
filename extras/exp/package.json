@@ -10,29 +10,29 @@
     "start": "tsx ./src/main.ts",
     "typecheck": "tsc --noEmit"
   },
-  "packageManager": "pnpm@8.14.1",
+  "packageManager": "pnpm@10.12.3+sha512.467df2c586056165580ad6dfb54ceaad94c5a30f80893ebdec5a44c5aa73c205ae4a5bb9d5ed6bb84ea7c249ece786642bbb49d06a307df218d03da41c317417",
   "dependencies": {
     "@strattadb/environment": "^8.0.2",
     "byline": "^5.0.0",
-    "dotenv": "^16.3.1",
-    "emittery": "^1.0.1",
-    "execa": "^8.0.1",
+    "dotenv": "^16.5.0",
+    "emittery": "^1.2.0",
+    "execa": "^9.6.0",
     "ndjson": "^2.0.0",
-    "p-defer": "^4.0.0",
-    "tmp": "^0.2.1",
-    "tsx": "^4.7.0",
-    "yargs": "^17.7.2"
+    "p-defer": "^4.0.1",
+    "tmp": "^0.2.3",
+    "tsx": "^4.20.3",
+    "yargs": "^18.0.0"
   },
   "devDependencies": {
     "@types/byline": "^4.2.36",
     "@types/ndjson": "^2.0.4",
-    "@types/node": "^20.11.5",
+    "@types/node": "^24.0.4",
     "@types/tmp": "^0.2.6",
-    "@types/yargs": "^17.0.32",
-    "@yoursunny/xo-config": "^0.56.2",
-    "typescript": "~5.3.3"
+    "@types/yargs": "^17.0.33",
+    "@yoursunny/xo-config": "^0.60.0",
+    "typescript": "~5.8.3"
   },
   "engines": {
-    "node": "20.*"
+    "node": "24.*"
   }
 }

@@ -21,7 +21,7 @@ async function analyzeDump(
   if (!dump?.pcap) {
     return result;
   }
-  result.dumpPcap = dump.pcap.toString("base64");
+  result.dumpPcap = Buffer.from(dump.pcap).toString("base64");
   try {
     result.dumpPackets = await dump.extract(extractArg);
     labelPacketSteps(seq, result.devicePackets!);
@@ -62,6 +62,7 @@ export class Run {
     this.device = new Device(env.deviceSerial);
     this.device.on("state", this.handleDeviceState);
     this.device.on("line", (line) => this.l.debug("device", line));
+    // eslint-disable-next-line promise/prefer-await-to-then
     void this.device.once("error").then((err) => this.fail(err));
   }
 
@@ -142,6 +143,7 @@ export class Run {
       pakePassword: this.device!.password,
     });
     this.authenticator.on("line", (line) => this.l.debug("authenticator", line));
+    // eslint-disable-next-line promise/prefer-await-to-then
     void this.authenticator.once("error").then((err) => this.fail(err));
   }
 

@@ -1,8 +1,8 @@
 /**
  * Packet direction.
  *
- * "<" indicates a packet from the device.
- * ">" indicates a packet to the device.
+ * `<` indicates a packet from the device.
+ * `>` indicates a packet to the device.
  */
 export type PacketDir = "<" | ">";
 

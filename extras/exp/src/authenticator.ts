@@ -1,6 +1,5 @@
-import byline from "byline";
 import Emittery from "emittery";
-import { execa, type ExecaChildProcess } from "execa";
+import { execa, type ResultPromise } from "execa";
 
 interface Events {
   error: Error;
@@ -10,7 +9,7 @@ interface Events {
 
 /** Control the authenticator program. */
 export class Authenticator extends Emittery<Events> {
-  private readonly child: ExecaChildProcess<Buffer>;
+  private readonly child: ResultPromise;
 
   /** Start the authenticator. */
   constructor(opts: Authenticator.Options) {
@@ -23,7 +22,8 @@ export class Authenticator extends Emittery<Events> {
       "-p", opts.pakePassword,
     ], {
       buffer: false,
-      encoding: null,
+      encoding: "utf8",
+      lines: true,
       stdin: "ignore",
       stdout: "ignore",
       stderr: "pipe",
@@ -43,7 +43,7 @@ export class Authenticator extends Emittery<Events> {
   public readonly logs: string[] = [];
 
   private async handleStderr() {
-    for await (const line of byline(this.child.stderr!, { encoding: "utf8" }) as AsyncIterable<string>) {
+    for await (const line of this.child as AsyncIterable<string>) {
       this.logs.push(line);
       void this.emit("line", line);
     }

@@ -1,11 +1,11 @@
-import { execa, type ExecaChildProcess } from "execa";
+import { execa, type ResultPromise } from "execa";
 
 import type { DirectConnection } from "./direct-connection";
 
 /** Control the Bluetooth Low Energy bridge script. */
 export class BleBridge implements DirectConnection {
   private connected = false;
-  private child?: ExecaChildProcess<Buffer>;
+  private child?: ResultPromise;
   private finish?: Promise<void>;
 
   constructor(private readonly addr: string, private readonly bridgePath: string) {}
@@ -19,7 +19,7 @@ export class BleBridge implements DirectConnection {
           "--listen-addr", BleBridge.IP,
           "--listen-port", `${BleBridge.PORT}`,
         ], {
-          encoding: null,
+          encoding: "utf8",
           stdin: "ignore",
           stdout: "ignore",
           stderr: "inherit",

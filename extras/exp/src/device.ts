@@ -1,6 +1,5 @@
-import byline from "byline";
 import Emittery from "emittery";
-import { execa, type ExecaChildProcess } from "execa";
+import { execa, type ResultPromise } from "execa";
 
 import type { PacketDir, PacketMeta } from "./packet";
 
@@ -63,18 +62,19 @@ interface Events {
  * Control the device via device_conn.py bridge script.
  */
 export class Device extends Emittery<Events> {
-  private readonly child: ExecaChildProcess<Buffer>;
+  private readonly child: ResultPromise;
 
   constructor(port: string) {
     super();
     this.child = execa("pipenv", ["run", "python", "-u", "device_conn.py", "--port", port], {
       buffer: false,
-      encoding: null,
+      encoding: "utf8",
+      lines: true,
       stdin: "ignore",
       stdout: "pipe",
       stderr: "inherit",
     });
-    // eslint-disable-next-line @typescript-eslint/no-floating-promises
+
     this.child.on("error", (err) => {
       void this.emit("error", err);
     });
@@ -104,7 +104,7 @@ export class Device extends Emittery<Events> {
   }
 
   private async handleStdout() {
-    for await (const line of byline(this.child.stdout!, { encoding: "utf8" }) as AsyncIterable<string>) {
+    for await (const line of this.child as AsyncIterable<string>) {
       let l: DeviceLogLine;
       try {
         l = new DeviceLogLine(line);

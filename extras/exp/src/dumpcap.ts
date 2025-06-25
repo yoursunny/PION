@@ -1,13 +1,13 @@
-import { execa, type ExecaChildProcess } from "execa";
+import { execa, type ResultPromise } from "execa";
 
 import type { PacketDir, PacketMeta } from "./packet";
 
 /** Capture packets on a network interface. */
 export class Dumpcap {
-  private readonly child: ExecaChildProcess<Buffer>;
+  private readonly child: ResultPromise;
 
   /** PCAP trace, available after `close()`. */
-  public pcap?: Buffer;
+  public pcap?: Uint8Array;
 
   /** Start packet capture. */
   constructor(netif: string, filter?: string) {
@@ -19,7 +19,7 @@ export class Dumpcap {
       "-w", "-", // output to stdout
       ...(filter ? ["-f", filter] : []), // filter
     ], {
-      encoding: null,
+      encoding: "buffer",
       stdin: "ignore",
       stdout: "pipe",
       stderr: "inherit",
@@ -30,7 +30,7 @@ export class Dumpcap {
   public async close(): Promise<void> {
     this.child.kill();
     const result = await this.child;
-    this.pcap = result.stdout;
+    this.pcap = result.stdout as Uint8Array;
   }
 
   /** Extract PacketMeta from `this.pcap` with pion-parsepcap program. */
