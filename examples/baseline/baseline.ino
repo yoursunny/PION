@@ -30,13 +30,13 @@ setup() {
 #endif
 
 #ifdef BASELINE_WANT_BLE_DEVICE
-  BLEDevice::init("esp32");
-  BLEDevice::setMTU(517);
-  BLEDevice::startAdvertising();
+  NimBLEDevice::init("esp32");
+  NimBLEDevice::setMTU(517);
+  NimBLEDevice::startAdvertising();
   MSG("BLE enabled");
   delay(2000);
-  BLEDevice::stopAdvertising();
-  BLEDevice::deinit(true);
+  NimBLEDevice::stopAdvertising();
+  NimBLEDevice::deinit(true);
   MSG("BLE disabled");
 #endif
 
