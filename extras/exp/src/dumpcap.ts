@@ -50,6 +50,9 @@ export class Dumpcap {
     for (const line of result.stdout.split("\n")) {
       const m = /^(\d+) ([<>]) (\d+)$/.exec(line);
       if (!m) {
+        if (/^\s*$/.test(line)) {
+          continue;
+        }
         throw new Error(`bad line: ${line}`);
       }
       packets.push({

@@ -66,13 +66,14 @@ export class Device extends Emittery<Events> {
 
   constructor(port: string) {
     super();
-    this.child = execa("pipenv", ["run", "python", "-u", "device_conn.py", "--port", port], {
+    this.child = execa("python", ["-u", "device_conn.py", "--port", port], {
       buffer: false,
       encoding: "utf8",
       lines: true,
       stdin: "ignore",
       stdout: "pipe",
       stderr: "inherit",
+      reject: false,
     });
 
     this.child.on("error", (err) => {

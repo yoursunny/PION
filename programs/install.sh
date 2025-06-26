@@ -3,15 +3,13 @@ set -euo pipefail
 cd "$(dirname "${BASH_SOURCE[0]}")"/..
 PION_BUILDDIR=build.programs
 
-OSREL=$(lsb_release -sc)
-if [[ $OSREL != jammy ]]; then
-  echo 'This script only works on Ubuntu 22.04' >/dev/stderr
+if [[ $(lsb_release -sc) != bookworm ]]; then
+  echo 'This script only works on Raspberry Pi OS bookworm' >/dev/stderr
   exit 1
 fi
 
 sudo apt-get update
-sudo apt-get -y -qq install --no-install-recommends build-essential libboost-dev libmbedtls-dev ninja-build python3-pip
-sudo pip3 install meson
+sudo apt-get -y -qq install --no-install-recommends build-essential libboost-dev libmbedtls-dev meson ninja-build
 
 if ! [[ -f ${PION_BUILDDIR}/compile_commands.json ]]; then
   meson setup ${PION_BUILDDIR}

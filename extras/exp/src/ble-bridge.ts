@@ -13,8 +13,8 @@ export class BleBridge implements DirectConnection {
   private async loop(): Promise<void> {
     while (this.connected) {
       try {
-        this.child = execa("pipenv", [
-          "run", "python", "BleUdpBridge.py",
+        this.child = execa("python", [
+          "BleUdpBridge.py",
           "--addr", this.addr,
           "--listen-addr", BleBridge.IP,
           "--listen-port", `${BleBridge.PORT}`,

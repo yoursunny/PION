@@ -43,7 +43,7 @@ export class Authenticator extends Emittery<Events> {
   public readonly logs: string[] = [];
 
   private async handleStderr() {
-    for await (const line of this.child as AsyncIterable<string>) {
+    for await (const line of this.child.iterable({ from: "stderr" }) as AsyncIterable<string>) {
       this.logs.push(line);
       void this.emit("line", line);
     }

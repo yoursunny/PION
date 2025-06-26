@@ -9,11 +9,12 @@ It also contains certain instrumentation features.
 
 To install the program to a microcontroller:
 
-1. Install Arduino IDE, [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32) v2.0.14, [NimBLE](https://github.com/h2zero/NimBLE-Arduino) and [esp8266ndn](https://github.com/yoursunny/esp8266ndn) libraries.
+1. Install Arduino IDE, [Arduino core for the ESP32](https://github.com/espressif/arduino-esp32) v3.2.0, [NimBLE](https://github.com/h2zero/NimBLE-Arduino) and [esp8266ndn](https://github.com/yoursunny/esp8266ndn) libraries.
 2. Clone this repository to `$HOME/Arduino/libraries`.
-3. Copy `sample.config.hpp` to `config.hpp`, and modify as necessary.
-4. In Arduino Tools menu, select "Board: ESP32 Dev Module" and "Partition Scheme: No OTA (2MB APP/2MB FATFS)".
-5. Flash the firmware as usual.
+3. Open the PION device example.
+4. Copy `sample.config.hpp` to `config.hpp`, and modify as necessary.
+5. In Arduino Tools menu, select "Board: ESP32 Dev Module" and "Partition Scheme: No OTA (2MB APP/2MB FATFS)".
+6. Flash the firmware as usual.
 
 ## Authenticator
 
@@ -26,7 +27,7 @@ The [certificate authority](../extras/ca) is a Node.js program.
 
 To install the program:
 
-1. Install Node.js 22.x with [nvm](https://github.com/nvm-sh/nvm) or [NodeSource APT](https://github.com/nodesource/distributions).
+1. Install Node.js 24.x with [nvm](https://github.com/nvm-sh/nvm) or [NodeSource APT](https://github.com/nodesource/distributions).
 2. `corepack pnpm install`.
 3. Modify `.env` as necessary.
 
@@ -41,7 +42,7 @@ To start the program:
 
 To install the program:
 
-1. Install Go 1.22.
+1. Install Go 1.24.
 2. `go install ./cmd/pion-pcapparse`
 3. `sudo install -t /usr/local/bin ~/go/bin/pion-pcapparse`
 
@@ -57,12 +58,13 @@ To run the experiment:
 2. Install the authenticator and the PCAP parser.
 3. Create an authenticator certificate (see below).
 4. Start the certificate authority normally.
-5. `pipenv install`.
-6. `corepack pnpm -s start --count N` runs the experiment N times, default is 1.
+7. `corepack pnpm -s start --count N` runs the experiment N times, default is 1.
 
 To create an authenticator certificate, start the certificate authority with "nop" challenge enabled, then:
 
 ```bash
+cd ~/PION/extras/exp
+
 export NDNPH_UPLINK_UDP=127.0.0.1
 export NDNPH_UPLINK_UDP_PORT=6363
 unset NDNPH_UPLINK_MTU

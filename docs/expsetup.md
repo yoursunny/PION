@@ -95,13 +95,12 @@ It can be installed with the following commands:
 
 ```bash
 sudo apt install python3-dev python3-venv libglib2.0-dev
-sudo pip3 install -U pipenv
 
 mkdir -p ~/BLE
 curl -fsLS https://github.com/yoursunny/esp8266ndn/archive/main.tar.gz |\
   tar -C ~/BLE -xz --strip-components=3 --wildcards 'esp8266ndn-*/extras/BLE'
 cd ~/BLE
-pipenv install
+python -m venv venv
 ```
 
 ## NFD Docker
