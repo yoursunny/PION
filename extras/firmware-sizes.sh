@@ -35,9 +35,8 @@ build_and_measure() {
   local PROGRAM="$3"
   shift 3
   if ! find $OUTPUT/*.ino.elf &>/dev/null; then
-    $ARDUINO compile --fqbn esp32:esp32:esp32 --warnings more \
-      --build-property 'build.partitions=noota_ffat' \
-      --build-property 'upload.maximum_size=2097152' \
+    $ARDUINO compile --fqbn esp32:esp32:esp32wrover:PartitionScheme=noota_ffat \
+      --warnings more \
       --build-path $(cygpath -w $OUTPUT) \
       ${SKETCH} >/dev/null
   fi
