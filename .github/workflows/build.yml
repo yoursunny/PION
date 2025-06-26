@@ -6,11 +6,11 @@ on:
 permissions: {}
 jobs:
   cpp:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/setup-python@v5
         with:
-          python-version: '3.10'
+          python-version: '3.12'
       - name: Install dependencies
         run: |
           sudo apt-get install --no-install-recommends clang-format-15 libboost-dev libmbedtls-dev meson
@@ -26,7 +26,7 @@ jobs:
           meson setup -Dbuildtype=debug -Dwerror=true build
           meson compile -C build
   arduino:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     steps:
       - uses: actions/checkout@v4
       - name: Copy samples
@@ -39,17 +39,17 @@ jobs:
           fqbn: esp32:esp32:esp32wrover:PartitionScheme=noota_ffat
           platforms: |
             - name: esp32:esp32
-              version: 2.0.17
+              version: 3.2.0
           libraries: |
             - source-path: ./
             - name: NimBLE-Arduino
-              version: 1.4.1
+              version: 2.3.1
             - source-url: https://github.com/yoursunny/NDNph.git
-              version: 2b5a287285dc369ffda410bed2951a1b101d2cdc
+              version: 058987b0751d9cbc3293c307a068c868b33f48cc
             - source-url: https://github.com/yoursunny/esp8266ndn.git
-              version: 2dfb2df6168d26daa6d836632596bd4f9cf7d23c
+              version: 625ca44fc2af37026d751baa9d0c4bfa3b8cdaf8
   node:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     strategy:
       matrix:
         subdir:
@@ -70,7 +70,7 @@ jobs:
           git diff --exit-code
       - run: corepack pnpm typecheck
   go:
-    runs-on: ubuntu-22.04
+    runs-on: ubuntu-24.04
     env:
       CGO_ENABLED: 0
     strategy:
